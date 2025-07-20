@@ -17,10 +17,10 @@ set(OpenGL_GL_PREFERENCE LEGACY)
 
 find_package(OpenGL REQUIRED)
 find_package(PkgConfig REQUIRED)
-find_package(GLU REQUIRED)
 pkg_check_modules(SDL2 REQUIRED sdl2)
 pkg_check_modules(SDL2_IMAGE REQUIRED SDL2_image)
 find_package(nlohmann_json REQUIRED)
+find_package(glm REQUIRED)
 
 if(APPLE)
     find_package(GLEW REQUIRED CONFIG)
@@ -31,10 +31,10 @@ endif()
 include_directories(
     ${PROJECT_SOURCE_DIR}/include
     ${OPENGL_INCLUDE_DIR}
-    ${GLU_INCLUDE_DIRS}
     ${SDL2_INCLUDE_DIRS}
     ${SDL2_IMAGE_INCLUDE_DIRS}
     ${GLEW_INCLUDE_DIRS}
+    ${glm_INCLUDE_DIRS}
 )
 
 link_directories(
@@ -48,7 +48,6 @@ add_executable(${PROJECT_NAME} ${SOURCE} ${HEADER})
 target_link_libraries(
     ${PROJECT_NAME}
     ${OPENGL_gl_LIBRARY}
-    ${GLU_LIBRARY}
     ${GLEW_LIBRARIES}
     GLEW::GLEW
     ${SDL2_LIBRARIES}

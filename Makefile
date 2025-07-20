@@ -22,7 +22,7 @@ else
 endif
 
 ubuntu-install-deps:
-	sudo apt install -y build-essential libsdl2-dev libsdl2-image-dev libglu1-mesa-dev libglew-dev nlohmann-json3-dev
+	sudo apt install -y build-essential libsdl2-dev libsdl2-image-dev libglm-dev libglew-dev nlohmann-json3-dev
 
 macos-install-deps:
 	brew install sdl2 sdl2_image sdl2_gfx cmake make glew nlohmann-json
