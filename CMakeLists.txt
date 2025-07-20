@@ -34,7 +34,7 @@ include_directories(
     ${SDL2_INCLUDE_DIRS}
     ${SDL2_IMAGE_INCLUDE_DIRS}
     ${GLEW_INCLUDE_DIRS}
-    ${glm_INCLUDE_DIRS}
+    ${GLM_INCLUDE_DIRS}
 )
 
 link_directories(
