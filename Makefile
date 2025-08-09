@@ -22,7 +22,7 @@ else
 endif
 
 ubuntu-install-deps:
-	sudo apt install -y build-essential libsdl2-dev libsdl2-image-dev libglu1-mesa-dev libglew-dev libyaml-cpp-dev xvfb clang-format
+	sudo apt update -y && sudo apt install -y build-essential libsdl2-dev libsdl2-image-dev libglu1-mesa-dev libglew-dev libyaml-cpp-dev xvfb clang-format
 
 macos-install-deps:
 	brew install sdl2 sdl2_image sdl2_gfx cmake make glew yaml-cpp clang-format
