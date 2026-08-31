@@ -21,6 +21,62 @@ else
 	GID=`id -g`
 endif
 
+docker-ubuntu:
+	docker build -t godot-openfight-ubuntu ./platform/ubuntu
+
+shell-ubuntu: docker-ubuntu
+	docker run -it --rm -v ${CURDIR}:${CURDIR} -w ${CURDIR} godot-openfight-ubuntu ${SHELL_COMMAND}
+
+ubuntu: ubuntu-debug ubuntu-release
+
+ubuntu-debug:
+	$(MAKE) shell-ubuntu SHELL_COMMAND='./platform/ubuntu/build_debug.sh'
+
+ubuntu-release:
+	$(MAKE) shell-ubuntu SHELL_COMMAND='./platform/ubuntu/build_release.sh'
+
+docker-mingw:
+	docker build -t godot-openfight-mingw ./platform/mingw
+
+shell-mingw: docker-mingw
+	docker run -it --rm -v ${CURDIR}:${CURDIR} -w ${CURDIR} godot-openfight-mingw ${SHELL_COMMAND}
+
+mingw: mingw-debug mingw-release
+
+mingw-debug:
+	$(MAKE) shell-mingw SHELL_COMMAND='./platform/mingw/build_debug.sh'
+
+mingw-release:
+	$(MAKE) shell-mingw SHELL_COMMAND='./platform/mingw/build_release.sh'
+
+docker-osxcross:
+	docker build -t godot-csound-osxcross ./platform/osxcross
+
+docker-web:
+	docker build -t godot-openfight-web ./platform/web
+
+shell-web: docker-web
+	docker run -it --rm -v ${CURDIR}:${CURDIR} -w ${CURDIR} godot-openfight-web ${SHELL_COMMAND}
+
+web: web-debug web-release
+
+web-debug:
+	$(MAKE) shell-web SHELL_COMMAND='./platform/web/build_debug.sh'
+
+web-release:
+	$(MAKE) shell-web SHELL_COMMAND='./platform/web/build_release.sh'
+
+shell-osxcross: docker-osxcross
+	docker run -it --rm -v ${CURDIR}:${CURDIR} -w ${CURDIR} godot-csound-osxcross ${SHELL_COMMAND}
+
+osxcross: oxcross-debug osxcross-release
+
+osxcross-debug:
+	$(MAKE) shell-osxcross SHELL_COMMAND='./platform/osxcross/build_debug.sh'
+
+osxcross-release:
+	$(MAKE) shell-osxcross SHELL_COMMAND='./platform/osxcross/build_release.sh'
+
 ubuntu-install-deps:
 	sudo apt update -y && sudo apt install -y build-essential libsdl2-dev libsdl2-image-dev libglu1-mesa-dev libglew-dev libyaml-cpp-dev xvfb clang-format
 
@@ -75,7 +131,7 @@ check-leak:
 	valgrind --leak-check=full --leak-check=full --show-leak-kinds=all --track-origins=yes ./${MAIN}
 
 format:
-	clang-format -i src/*.cpp include/*.h
+	clang-format -i src/libopenfight/*.cpp src/libopenfight/*.h src/platform/sdl/*.cpp src/platform/sdl/*.h
 
 format-check:
-	clang-format -n src/*.cpp include/*.h
+	clang-format -n src/libopenfight/*.cpp src/libopenfight/*.h src/platform/sdl/*.cpp src/platform/sdl/*.h

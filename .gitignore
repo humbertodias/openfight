@@ -1,7 +1,14 @@
 build/*
-openfight*
+addons/openfight/bin/*
 cmake*
 .idea
 .vscode
 log.txt
 .cache
+/src/gen/
+.sconsign.dblite
+.godot/*
+__pycache__/
+
+*.o
+*.os
